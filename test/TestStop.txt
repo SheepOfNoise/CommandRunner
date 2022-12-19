@@ -1,0 +1,21 @@
+# Test file for a simple, happy flow.
+Turn left 90
+Move-to -10 -20
+Stop
+
+Move 10
+Turn right 90
+Move 10
+If fork-sensor eq true
+    Turn right 90
+Else
+    Raise-error No bin on fork
+End
+Loop 3 X eq 0
+    Turn left 90
+End
+Parallel
+    Turn right 90
+    Lift-fork 10
+End
+Stop
