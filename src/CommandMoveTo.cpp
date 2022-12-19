@@ -43,7 +43,7 @@ void CommandMoveTo::preExecute(void) {
         double currentY = Environment::GetInstance()->getLocation('Y');
         double targetDir = atan2(_targetX - currentX, _targetY - currentY);
         int deltaDirection = -(int)calcTurnAngleDelta(sin(targetDir), cos(targetDir));
-        string turnDirection = directionCW(cos(targetDir), sin(targetDir)) ? "right" : "left";
+        string turnDirection = directionCW(sin(targetDir), cos(targetDir)) ? "right" : "left";
         _legCommands.push_back(new CommandTurn(vector<string>{turnDirection, to_string(deltaDirection)}));
         _legCommands.push_back(new CommandMove(vector<string>{to_string(calcDistance())}));
     }

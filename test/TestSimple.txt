@@ -1,15 +1,15 @@
 # Test file for a simple, happy flow.
 
-Drive-through 10 10
-Drive-through 20 20
+Move-to 10 10
+Move-to 10 -20
 Parallel
     Turn right 90
-    Lift-fork
-End
-Loop 3 until fork-sensor true
-    Move forward 500
     Lift-fork 10
-    Move backward 500
+End
+Loop 3 X eq 0
+    Move 500
+    Lift-fork 10
+    Move 500
 End
 If fork-sensor eq true
     Turn right 90

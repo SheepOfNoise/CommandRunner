@@ -18,6 +18,8 @@ void CommandLoop::execute(void)
     else
     {
         --_iterations;
+        for (Command* c : _subCommands)
+            c->setEvent(Command::ExecEvents::EventExecutionStarted);
         CommandRunner::GetInstance()->executeSequence(_subCommands);
         setEvent(Command::ExecEvents::EventExecutionProgress);
     }

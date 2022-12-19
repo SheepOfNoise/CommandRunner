@@ -24,7 +24,7 @@ Command::ExecEvents Environment::WaitForEvent(StateVariables varType)
         {
             varState.inMotion = false;
             _logger->debug("Motion stopped for {}", static_cast<int>(varType));
-            if (varType == StateVariables::StateZ)
+            if (varType == StateVariables::StateY || varType == StateVariables::StateZ)
                 varState.currentValue = 0;
         }
         else
