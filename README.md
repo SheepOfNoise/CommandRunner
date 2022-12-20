@@ -30,8 +30,10 @@ The environment module manages states of a collection of variables that represen
 3. **Height (Y)**: represents a relative movement of the fork-lift, positive=up..
 4. **Movement (Z)**: represents a relative movement of the robot, positive=forward.
 5. **Fork Load**: true when the fork is loaded with a bin.
-6. ### Logger
-7. A logging facility based on the fine Spdlog open-source library by Gabi Melman. Supports severity level messaging, both to console as well as to a rotating file collection.
+### Logger
+A logging facility based on the fine Spdlog open-source library by Gabi Melman. Supports severity level messaging, both to console as well as to a rotating file collection.
+### getopt
+A getopt implementation was incorporated to enable robust argument parsing. Code was taken from the [IoTivity Library](https://github.com/iotivity/iotivity/tree/master/resource/c_common/windows).
 ## Example of a specification file
 (Also available under ./test/TestSimple.txt)
 ```
