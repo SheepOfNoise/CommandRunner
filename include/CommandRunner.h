@@ -29,7 +29,7 @@ public:
     void executeSequence(vector<Command*>, bool isSequentialMode = true);
     void cancelSequence(void) {
         _commands.clear();
-        _logger->warn("Current sequence cancelled");
+        _logger->warn("Current sequence stopped");
     }
 
 private:

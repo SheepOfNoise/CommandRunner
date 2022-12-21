@@ -10,14 +10,21 @@ int main(int argc, char* argv[])
 
     int opt;
     bool parseOnly = false;
-    while ((opt = getopt(argc, argv, "p")) != -1) {
+    bool verbosity = false;
+    while ((opt = getopt(argc, argv, "pv")) != -1) {
         switch (opt) {
+        case 'v':
+            verbosity = true;
+            CLogger::GetInstance()->SetLogLevel(spdlog::level::debug);
+            g_logger->set_level(spdlog::level::debug);
+            g_logger->debug("Verbosity is on");
+            break;
         case 'p':
             parseOnly = true;
             g_logger->debug("Parse-only mode");
             break;
         default:
-            g_logger->error("Usage: {} [-p] command-spec-file", argv[0]);
+            g_logger->error("Usage: {} [-p|-v] command-spec-file", argv[0]);
             ::exit(EXIT_FAILURE);
         }
         optind++;
@@ -30,4 +37,5 @@ int main(int argc, char* argv[])
     CommandRunner::GetInstance()->ParseSpecFile(argv[optind]);
     if (!parseOnly)
         CommandRunner::GetInstance()->executeSequence();
+    g_logger->info("Command Runner is done");
 }

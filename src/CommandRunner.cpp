@@ -149,7 +149,7 @@ void CommandRunner::executeSequence(void)
             c->preExecute();
             c->execute();
         }
-        _logger->debug("Sequence complete");
+        _logger->debug("Current sequence complete");
         if (_sequences.size())
         {
             _commands = _sequences.top(); _sequences.pop();

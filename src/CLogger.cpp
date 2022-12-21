@@ -15,7 +15,7 @@ CLogger::CLogger() {
 std::shared_ptr<spdlog::logger> CLogger::CreateLogger(std::string name)
 {
 	std::shared_ptr<spdlog::logger> logger = std::make_shared<spdlog::logger>(name, begin(sinks_), end(sinks_));
-	logger->set_level(spdlog::level::debug);
+	logger->set_level(log_level_);
 
 	return logger;
 }
