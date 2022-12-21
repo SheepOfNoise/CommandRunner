@@ -3,6 +3,12 @@
 The Command Runner is a framework for executing sequences of commands. Each command has its own implementation.
 Commands are read from a specification file, passed as an argument to the executable when run on the command line. See below for an example of such a sequence.
 Sequences can be nested.
+## How to Run
+1. Clone this repository.
+2. Compile and link it (I used MSVC, executable located under .\x64\Debug).
+3. Run usage: .\x64\Debug\CommandRunner.exe  .\test\TestSimple.txt
+4. Add -v to get more verbosity and see commands' effect on enrironment.
+5. Add -p to only load and parse the commands.
 ## Requirements
 1.	Each command will be called to respond for the following event:
 a.	Execution started
@@ -26,14 +32,12 @@ The following modules are available for the commands:
 ### Environment
 The environment module manages states of a collection of variables that represent the physical environment of the robot. It includes the robot location, orientation, and sensors, all in unit distance:
 1. **Location**: two variables that represent the X and Y planar location.
-2. **Yaw (X)**: represents the angle from "north", positive=clockwise.
-3. **Height (Y)**: represents a relative movement of the fork-lift, positive=up..
-4. **Movement (Z)**: represents a relative movement of the robot, positive=forward.
+2. **Yaw (variable X or 0)**: represents the angle from "north", positive=clockwise.
+3. **Height (variable Y or 1)**: represents a relative movement of the fork-lift, positive=up..
+4. **Movement (variable Z or 2)**: represents a relative movement of the robot, positive=forward.
 5. **Fork Load**: true when the fork is loaded with a bin.
-### Logger
-A logging facility based on the fine Spdlog open-source library by Gabi Melman. Supports severity level messaging, both to console as well as to a rotating file collection.
-### getopt
-A getopt implementation was incorporated to enable robust argument parsing. Code was taken from the [IoTivity Library](https://github.com/iotivity/iotivity/tree/master/resource/c_common/windows).
+6. ### Logger
+7. A logging facility based on the fine Spdlog open-source library by Gabi Melman. Supports severity level messaging, both to console as well as to a rotating file collection.
 ## Example of a specification file
 (Also available under ./test/TestSimple.txt)
 ```
