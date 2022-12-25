@@ -10,7 +10,8 @@ public:
         FactorySuccess,
         FactoryNoneEOF,
         FactoryNoneElse,
-        FactoryNoneEnd
+        FactoryNoneEnd,
+        FactoryNoneUnknownCommand
     };
 
     CommandRunner(const CommandRunner&) = delete;
@@ -22,7 +23,7 @@ public:
         return _instance;
     }
 
-    void ParseSpecFile(string sequence_spec_file);
+    int ParseSpecFile(string sequence_spec_file);
     Command* CommandFactory(std::ifstream&, FactoryNoneReason&);
     static FactoryNoneReason collectCommandBlock(std::ifstream& specStream, vector<Command*>& commands, FactoryNoneReason& reason);
     void executeSequence(void);

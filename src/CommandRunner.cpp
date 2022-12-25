@@ -34,14 +34,27 @@ static inline void trim(std::string& s) {
 
 CommandRunner* CommandRunner::_instance = NULL;
 
-void CommandRunner::ParseSpecFile(string specFile)
+int CommandRunner::ParseSpecFile(string specFile)
 {
     std::ifstream specStream(specFile);
+    if (specStream.fail())
+    {
+        _logger->error("File {} doesn't exist - aborting", specFile);
+        return -1;
+    }
     Command* command = NULL;
     FactoryNoneReason reason;
     while ((command = CommandFactory(specStream, reason)) != NULL) {
         _commands.push_back(command);
     }
+    if (reason != FactoryNoneReason::FactoryNoneEOF)
+    {
+        _logger->error("Parsing spec file {} failed", specFile);
+        return -1;
+    }
+    _logger->debug("Parsed {} top-level commands from {}", _commands.size(), specFile);
+
+    return 0;
 }
 
 Command* CommandRunner::CommandFactory(std::ifstream& specStream, FactoryNoneReason& reason)
@@ -92,6 +105,11 @@ Command* CommandRunner::CommandFactory(std::ifstream& specStream, FactoryNoneRea
         reason = FactoryNoneReason::FactoryNoneElse;
     else if (opcode == "end")
         reason = FactoryNoneReason::FactoryNoneEnd;
+    else
+    {
+        reason = FactoryNoneReason::FactoryNoneUnknownCommand;
+        _logger->error("Unknown command {} while parsing spec stream", opcode);
+    }
     if (command)
     {
         command->setOpcode(opcode);
